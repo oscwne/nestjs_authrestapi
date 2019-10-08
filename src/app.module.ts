@@ -6,20 +6,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import * as dotenv from 'dotenv';
 import { PassportModule } from '@nestjs/passport';
+import { DatabaseModule } from './database/database.module';
 
 dotenv.config();
 
 @Module({
-  imports: [
-    PassportModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/OralAdvancedDev', {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-    }),
-    AccountModule,
-    AuthModule,
-  ],
+  imports: [PassportModule, AccountModule, AuthModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -17,6 +17,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiBadRequestResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 import { MongoDbExceptionFilter, FilterResult } from '../../filters';
@@ -29,12 +30,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @ApiBearerAuth()
   @ApiOkResponse({ description: 'Ok', type: UserDto })
   get(): Promise<UserDto[]> {
     return this.usersService.getAsync();
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ description: 'Ok', type: UserDto })
   getById(@Param('id') id: string): Promise<UserDto> {
     return this.usersService.getByIdAsync(id);
@@ -49,6 +52,7 @@ export class UsersController {
   }
 
   @Put(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ description: 'Ok', type: UserDto })
   @ApiBadRequestResponse({ description: 'Bad Request', type: FilterResult })
   update(
@@ -59,6 +63,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ description: 'Ok', type: UserDto })
   @ApiBadRequestResponse({ description: 'Bad Request', type: FilterResult })
   delete(@Param('id') id: string): Promise<UserDto> {

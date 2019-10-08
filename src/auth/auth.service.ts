@@ -34,7 +34,7 @@ export class AuthService {
 
   login(user: UserDto) {
     const {
-      _id: userId,
+      _id,
       firstName,
       lastName,
       email,
@@ -44,8 +44,8 @@ export class AuthService {
     } = user;
 
     const payload = {
-      sub: userId,
-      user: { firstName, lastName, email, userName, verified, firstLogin },
+      sub: _id,
+      user: { _id, firstName, lastName, email, userName, verified, firstLogin },
     };
     return {
       access_token: this.jwtService.sign(payload),

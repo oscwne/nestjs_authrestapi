@@ -10,6 +10,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
 import { LoginDto } from './auth/dtos/login.dto';
 import { UserDto } from './account/dtos/user';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('api/v1')
 export class AppController {
@@ -21,6 +22,7 @@ export class AppController {
     return this.authService.login(req.user as UserDto);
   }
 
+  @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
   getProfile(@Request() req) {

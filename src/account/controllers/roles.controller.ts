@@ -15,9 +15,11 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiBadRequestResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { MongoDbExceptionFilter, FilterResult } from '../../filters';
 
+@ApiBearerAuth()
 @ApiUseTags('Account')
 @ApiProduces('application/json')
 @UseFilters(new MongoDbExceptionFilter())

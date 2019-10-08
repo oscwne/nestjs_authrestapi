@@ -1,15 +1,15 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, Inject } from '@nestjs/common';
 
 //#region dtos, interface
 import { CreateRoleDto, RoleDto } from '../dtos/role';
 import { IRole } from '../interfaces/role.interface';
+import { ROLE_MODEL } from '../constants';
 //#endregion
 
 @Injectable()
 export class RolesService {
-  constructor(@InjectModel('Role') private readonly roleModel: Model<IRole>) {}
+  constructor(@Inject(ROLE_MODEL) private readonly roleModel: Model<IRole>) {}
 
   async getAsync(): Promise<RoleDto[]> {
     return await this.roleModel.find();

@@ -1,16 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 //#region dtos and interface
 import { IUser } from '../interfaces/user.interface';
 import { CreateUserDto, UpdateUserDto, UserDto } from '../dtos/user';
+import { USER_MODEL } from '../constants';
 //#endregion
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
+  constructor(@Inject(USER_MODEL) private readonly userModel: Model<IUser>) {}
 
   async getAsync(): Promise<UserDto[]> {
     return this.userModel.find();
