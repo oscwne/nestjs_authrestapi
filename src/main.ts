@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('API')
     .setDescription('Restful API')
     .setVersion('1.0')
+    .setSchemes('http', 'https')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('', app, document);
