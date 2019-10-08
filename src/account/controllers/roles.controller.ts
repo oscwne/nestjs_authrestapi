@@ -5,7 +5,7 @@ import {
   Body,
   Param,
   HttpCode,
-  UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { RolesService } from '../services';
 import { RoleDto, CreateRoleDto } from '../dtos/role';
@@ -17,12 +17,13 @@ import {
   ApiBadRequestResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
-import { MongoDbExceptionFilter, FilterResult } from '../../filters';
+import { FilterResult } from '../../filters';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiBearerAuth()
 @ApiUseTags('Account')
+@UseGuards(AuthGuard())
 @ApiProduces('application/json')
-@UseFilters(new MongoDbExceptionFilter())
 @Controller('api/v1/account/roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}

@@ -7,10 +7,9 @@ import {
   HttpCode,
   Param,
   Body,
-  UseFilters,
+  UseGuards,
 } from '@nestjs/common';
-import { UsersService } from '../services';
-import { UserDto, CreateUserDto, UpdateUserDto } from '../dtos/user';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiUseTags,
   ApiProduces,
@@ -20,11 +19,13 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 
-import { MongoDbExceptionFilter, FilterResult } from '../../filters';
+import { UsersService } from '../services';
+import { UserDto, CreateUserDto, UpdateUserDto } from '../dtos/user';
+import { FilterResult } from '../../filters';
 
 @ApiUseTags('Account')
 @ApiProduces('application/json')
-@UseFilters(new MongoDbExceptionFilter())
+@UseGuards(AuthGuard())
 @Controller('api/v1/account/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

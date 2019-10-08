@@ -7,21 +7,14 @@ import { FilterResult } from '../filter-result';
 
 @Catch()
 export class MongoDbExceptionFilter implements ExceptionFilter {
-  catch(exception: unknown, host: ArgumentsHost) {
+  catch(exception: MongoError | Error.ValidationError, host: ArgumentsHost) {
     let result: FilterResult;
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    let message: string;
-
-    if (exception instanceof MongoError) {
-      message = exception.message;
-    } else if (exception instanceof Error.ValidationError) {
-      message = exception.message;
-    }
 
     result = {
-      message,
+      message: exception.message,
       timestamp: new Date().toISOString(),
       path: request.url,
     };

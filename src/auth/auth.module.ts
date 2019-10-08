@@ -4,10 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
-import * as dotenv from 'dotenv';
 import { AccountModule } from '../account/account.module';
-
-dotenv.config();
 
 @Module({
   imports: [
