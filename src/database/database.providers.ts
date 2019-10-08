@@ -6,8 +6,8 @@ export const databaseProviders = [
     provide: DB_CONNECTION,
     useFactory: (): Promise<typeof mongoose> =>
       mongoose.connect(
-        'mongodb://localhost:27017/OralAdvancedDev',
-        //`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_URI}/${process.env.DB_NAME}?${process.env.DB_CONFIG}`,
+        //'mongodb://localhost:27017/OralAdvancedDev',
+        `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_URI}/${process.env.DB_NAME}?${process.env.DB_CONFIG}`,
         {
           useCreateIndex: true,
           useUnifiedTopology: true,
